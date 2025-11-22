@@ -1,7 +1,7 @@
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { ArrowRight, Shield, Globe, TrendingUp, Building2, Leaf, Activity, Users, CheckCircle2, Zap, ChevronDown, MapPin, BarChart3, Loader2, Check } from 'lucide-react';
+import { ArrowRight, Shield, Globe, TrendingUp, Building2, Leaf, Activity, Users, CheckCircle2, Zap, ChevronDown, BarChart3, Loader2, Check } from 'lucide-react';
 import GlobalNetworkViz from '../components/GlobalNetworkViz';
 import MarketChart from '../components/MarketChart';
 import EcosystemDiagram from '../components/EcosystemDiagram';
@@ -14,22 +14,34 @@ const Home: React.FC = () => {
   
   const location = useLocation();
 
-  // Handle Hash Scrolling
+  // Handle Hash Scrolling with slight delay to ensure DOM is ready
   useEffect(() => {
     if (location.hash) {
       const id = location.hash.replace('#', '');
-      const element = document.getElementById(id);
-      if (element) {
-        setTimeout(() => {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }, 100);
-      }
+      // Small delay to allow layout to stabilize
+      setTimeout(() => {
+        const element = document.getElementById(id);
+        if (element) {
+          const headerOffset = 80;
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth"
+          });
+        }
+      }, 300);
     }
   }, [location]);
 
   // Handle Parallax
   useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
+    const handleScroll = () => {
+        requestAnimationFrame(() => {
+            setScrollY(window.scrollY);
+        });
+    };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -61,21 +73,21 @@ const Home: React.FC = () => {
              className="absolute inset-0 bg-cover bg-center scale-110 will-change-transform"
              style={{ 
                  backgroundImage: 'url("https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop")',
-                 transform: `translateY(${scrollY * 0.4}px)`
+                 transform: `translateY(${scrollY * 0.3}px)`
              }}
            ></div>
            {/* Gradient Overlays for text readability */}
-           <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/50 to-bg-matteBlack z-10"></div>
+           <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/40 to-bg-matteBlack z-10"></div>
            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.8)_100%)] z-10"></div>
         </div>
         
         {/* Spiderweb Overlay Effect */}
-        <div className="absolute inset-0 z-0 opacity-[0.07] pointer-events-none" 
+        <div className="absolute inset-0 z-0 opacity-[0.07] pointer-events-none mix-blend-overlay" 
              style={{ backgroundImage: 'radial-gradient(circle, #D4AF37 1px, transparent 1px)', backgroundSize: '40px 40px' }}>
         </div>
 
         <div className="relative z-20 container mx-auto px-6 text-center mt-16">
-            <div className="mb-8 inline-flex items-center justify-center p-4 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 animate-fade-in">
+            <div className="mb-8 inline-flex items-center justify-center p-4 rounded-full bg-white/5 backdrop-blur-md border border-white/10 animate-fade-in shadow-[0_0_30px_rgba(0,0,0,0.5)]">
                 <Shield className="w-12 h-12 text-bg-gold drop-shadow-[0_0_15px_rgba(212,175,55,0.6)]" strokeWidth={1} />
             </div>
             <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl font-medium text-white leading-[1.1] mb-8 animate-fade-in-up tracking-tight drop-shadow-2xl" style={{animationDelay: '0.2s'}}>
@@ -98,7 +110,7 @@ const Home: React.FC = () => {
 
         {/* Scroll Indicator */}
         <div 
-            className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 animate-bounce text-white/30 cursor-pointer hover:text-bg-gold transition-colors"
+            className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 animate-bounce text-white/30 cursor-pointer hover:text-bg-gold transition-colors p-2"
             onClick={() => document.getElementById('who-we-serve')?.scrollIntoView({behavior: 'smooth'})}
         >
             <ChevronDown className="w-6 h-6" />
@@ -121,15 +133,15 @@ const Home: React.FC = () => {
                     { title: "Athletes (TG4)", desc: "From performance to prosperity—elite advisory & lifestyle.", icon: Activity },
                     { title: "Governments", desc: "Strategies supporting national development & infrastructure.", icon: Globe },
                 ].map((item, i) => (
-                    <div key={i} className="group relative bg-bg-matteBlack p-10 h-[24rem] flex flex-col justify-between overflow-hidden cursor-pointer hover:bg-[#0f0f0f] transition-colors">
+                    <div key={i} className="group relative bg-bg-matteBlack p-10 min-h-[24rem] flex flex-col justify-between overflow-hidden cursor-pointer hover:bg-[#0f0f0f] transition-colors">
                         {/* Hover Background Gradient */}
                         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-bg-gold/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
                         
                         <div className="relative z-10">
-                            <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center mb-8 group-hover:border-bg-gold/50 group-hover:text-bg-gold transition-colors bg-white/5">
+                            <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center mb-8 group-hover:border-bg-gold/50 group-hover:text-bg-gold transition-colors bg-white/5 group-hover:scale-110 transform duration-500">
                                 <item.icon className="w-5 h-5" />
                             </div>
-                            <h3 className="font-serif text-2xl text-white mb-4 leading-tight group-hover:translate-y-0 transition-transform duration-500">{item.title}</h3>
+                            <h3 className="font-serif text-2xl text-white mb-4 leading-tight group-hover:text-bg-gold transition-colors duration-300">{item.title}</h3>
                         </div>
                         
                         <div className="relative z-10">
@@ -193,7 +205,7 @@ const Home: React.FC = () => {
       <section id="solutions" className="py-32 bg-[#0f0f0f]">
         <div className="container mx-auto px-6">
             <div className="grid md:grid-cols-[1fr_2fr] gap-16 mb-20">
-                <div className="sticky top-32 self-start">
+                <div className="md:sticky md:top-32 self-start">
                     <h2 className="font-serif text-5xl text-white mb-6 leading-tight">Global <br/>Investment <br/><span className="text-bg-gold">Pillars</span></h2>
                     <p className="text-gray-400 leading-relaxed mb-8">
                         Connecting you to global opportunities through disciplined frameworks and institutional-grade architecture.
@@ -230,10 +242,10 @@ const Home: React.FC = () => {
       {/* GLOBAL REACH - REDESIGNED */}
       <section id="global" className="bg-[#030303] border-t border-white/5 relative">
         {/* Responsive Layout: Stacked on mobile, side-by-side on large screens */}
-        <div className="grid lg:grid-cols-[1fr_3fr] min-h-[700px] h-auto lg:h-[700px]">
+        <div className="flex flex-col lg:grid lg:grid-cols-[1fr_3fr]">
             
             {/* Left Control Panel */}
-            <div className="bg-bg-charcoal border-r border-white/5 p-8 flex flex-col justify-between relative z-10 shadow-[10px_0_30px_rgba(0,0,0,0.5)] min-h-[400px]">
+            <div className="bg-bg-charcoal border-r border-white/5 p-8 flex flex-col justify-between relative z-10 shadow-[10px_0_30px_rgba(0,0,0,0.5)] min-h-[300px] lg:min-h-[700px]">
                 <div>
                     <div className="flex items-center gap-3 mb-6 opacity-70">
                         <Globe className="w-5 h-5 text-bg-gold" />
@@ -288,7 +300,7 @@ const Home: React.FC = () => {
             </div>
 
             {/* Right Map Visualization */}
-            <div className="relative h-[500px] lg:h-auto w-full overflow-hidden bg-[#030303]">
+            <div className="relative h-[400px] lg:h-[700px] w-full overflow-hidden bg-[#030303]">
                  <div className="absolute top-6 right-6 z-10 flex gap-4 pointer-events-none">
                      <div className="bg-black/50 backdrop-blur border border-white/10 px-4 py-2 rounded-full flex items-center gap-2">
                          <div className="w-2 h-2 bg-bg-gold rounded-full"></div>
@@ -433,22 +445,22 @@ const Home: React.FC = () => {
             </div>
             
             <form onSubmit={handleContactSubmit} className="bg-bg-matteBlack p-12 md:p-16 border border-white/5 shadow-2xl relative overflow-hidden">
-                {contactFormStatus === 'success' ? (
+                {contactFormStatus === 'success' && (
                     <div className="absolute inset-0 flex flex-col items-center justify-center bg-bg-matteBlack z-20 animate-fade-in">
-                        <div className="w-16 h-16 rounded-full bg-green-500/10 flex items-center justify-center mb-4">
-                            <CheckCircle2 className="w-8 h-8 text-green-500" />
+                        <div className="w-20 h-20 rounded-full bg-green-500/10 flex items-center justify-center mb-6">
+                            <CheckCircle2 className="w-10 h-10 text-green-500" />
                         </div>
-                        <h3 className="text-2xl font-serif text-white mb-2">Inquiry Received</h3>
-                        <p className="text-gray-400">Our team will be in touch within 24 hours.</p>
+                        <h3 className="text-3xl font-serif text-white mb-3">Inquiry Received</h3>
+                        <p className="text-gray-400 mb-8">Our team will be in touch within 24 hours.</p>
                         <button 
                             type="button" 
                             onClick={() => setContactFormStatus('idle')}
-                            className="mt-8 text-xs uppercase tracking-widest text-bg-gold hover:text-white"
+                            className="text-xs uppercase tracking-widest text-bg-gold hover:text-white border-b border-bg-gold pb-1 hover:border-white transition-all"
                         >
-                            Send Another
+                            Send Another Message
                         </button>
                     </div>
-                ) : null}
+                )}
 
                 <div className="grid md:grid-cols-2 gap-12 mb-12">
                     <div className="group">
@@ -463,19 +475,22 @@ const Home: React.FC = () => {
                 
                 <div className="mb-12 group">
                     <label className="block text-xs uppercase tracking-widest text-gray-500 mb-2 group-focus-within:text-bg-gold transition-colors">Inquiry Type</label>
-                    <select className="w-full bg-transparent border-b border-white/20 py-3 text-white outline-none focus:border-bg-gold transition-colors font-serif text-xl appearance-none cursor-pointer">
-                        <option className="bg-bg-charcoal">High-Net-Worth Client</option>
-                        <option className="bg-bg-charcoal">Family Office</option>
-                        <option className="bg-bg-charcoal">Institution or Corporation</option>
-                        <option className="bg-bg-charcoal">Athlete (TG4)</option>
-                        <option className="bg-bg-charcoal">Government Partnership</option>
-                    </select>
+                    <div className="relative">
+                        <select className="w-full bg-transparent border-b border-white/20 py-3 text-white outline-none focus:border-bg-gold transition-colors font-serif text-xl appearance-none cursor-pointer z-10 relative">
+                            <option className="bg-bg-charcoal">High-Net-Worth Client</option>
+                            <option className="bg-bg-charcoal">Family Office</option>
+                            <option className="bg-bg-charcoal">Institution or Corporation</option>
+                            <option className="bg-bg-charcoal">Athlete (TG4)</option>
+                            <option className="bg-bg-charcoal">Government Partnership</option>
+                        </select>
+                        <ChevronDown className="absolute right-0 top-4 text-gray-500 w-5 h-5 pointer-events-none" />
+                    </div>
                 </div>
 
                 <button 
                     type="submit" 
                     disabled={contactFormStatus === 'submitting'}
-                    className="w-full bg-white text-black py-5 uppercase tracking-[0.25em] text-xs font-bold hover:bg-bg-gold transition-colors disabled:opacity-70 flex justify-center items-center gap-2"
+                    className="w-full bg-white text-black py-5 uppercase tracking-[0.25em] text-xs font-bold hover:bg-bg-gold transition-colors disabled:opacity-70 flex justify-center items-center gap-2 shadow-lg"
                 >
                     {contactFormStatus === 'submitting' ? (
                         <>

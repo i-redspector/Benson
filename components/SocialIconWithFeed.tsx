@@ -17,12 +17,15 @@ const SocialIconWithFeed: React.FC<Props> = ({ platform, Icon, colorClass = "tex
 
   const handleMouseEnter = async () => {
     setHovered(true);
-    setLoading(true);
-    try {
-      const data = await getLatestSocialUpdate(platform);
-      setUpdate(data);
-    } finally {
-      setLoading(false);
+    // Only fetch if we haven't already (or could implement cache expiry)
+    if (!update) {
+        setLoading(true);
+        try {
+          const data = await getLatestSocialUpdate(platform);
+          setUpdate(data);
+        } finally {
+          setLoading(false);
+        }
     }
   };
 
@@ -45,10 +48,15 @@ const SocialIconWithFeed: React.FC<Props> = ({ platform, Icon, colorClass = "tex
         <Icon className="w-5 h-5" />
       </a>
 
+      {/* Hover Bridge - Invisible area to bridge gap between icon and popover */}
+      {hovered && (
+        <div className={`absolute left-0 w-full h-6 ${placement === 'top' ? 'bottom-full' : 'top-full'}`}></div>
+      )}
+
       {/* Feed Popover */}
       <div 
-        className={`absolute left-1/2 -translate-x-1/2 w-[340px] bg-black/80 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.9)] p-5 transition-all duration-500 pointer-events-none z-50 ${
-            hovered ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-4 scale-95'
+        className={`absolute left-1/2 -translate-x-1/2 w-[340px] bg-black/90 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.9)] p-5 transition-all duration-300 z-50 ${
+            hovered ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto' : 'opacity-0 translate-y-4 scale-95 pointer-events-none'
         } ${placement === 'top' ? 'bottom-full mb-4' : 'top-full mt-4'}`}
       >
           {/* Subtle Gold Gradient Border Overlay */}
@@ -56,7 +64,7 @@ const SocialIconWithFeed: React.FC<Props> = ({ platform, Icon, colorClass = "tex
 
           {/* Tooltip Arrow */}
           <div 
-            className={`absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-black/80 border-r border-b border-white/10 backdrop-blur-2xl transform rotate-45 ${
+            className={`absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-black/90 border-r border-b border-white/10 backdrop-blur-2xl transform rotate-45 ${
                 placement === 'top' 
                 ? 'bottom-[-9px] border-t-0 border-l-0 border-r border-b' 
                 : 'top-[-9px] border-b-0 border-r-0 border-l border-t'
@@ -113,7 +121,7 @@ const SocialIconWithFeed: React.FC<Props> = ({ platform, Icon, colorClass = "tex
                            <span className="text-xs font-semibold text-white">{update.handle}</span>
                            <span className="text-[10px] text-gray-500">• {update.date}</span>
                        </div>
-                       <p className="text-xs text-gray-300 leading-relaxed font-light line-clamp-3">
+                       <p className="text-xs text-gray-300 leading-relaxed font-light line-clamp-3 selection:bg-bg-gold selection:text-black">
                          {update.content}
                        </p>
                    </div>

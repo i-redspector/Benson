@@ -8,14 +8,16 @@ import About from './pages/About';
 import Footer from './components/Footer';
 
 const ScrollToTop = () => {
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
 
   useEffect(() => {
-    // We only scroll to top if there is no hash, otherwise we let the hash scroll handler do its job
-    if (!window.location.hash) {
+    // If no hash, scroll to top immediately
+    if (!hash) {
       window.scrollTo(0, 0);
     }
-  }, [pathname]);
+    // If there is a hash, we rely on the page component's effect to handle the scroll
+    // to ensure the element exists in the DOM before scrolling
+  }, [pathname, hash]);
 
   return null;
 };

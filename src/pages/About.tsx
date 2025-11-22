@@ -71,8 +71,8 @@ const About: React.FC = () => {
       <section className="border-y border-[#D4A53A]/30 bg-[#050505] px-[8vw] py-24 relative">
         <div className="mx-auto grid max-w-6xl gap-16 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:items-center">
           <div className="order-2 md:order-1">
-            <h2 className="font-serif text-4xl text-[#F8F4EA] mb-8">The BG Philosophy</h2>
-            <p className="text-base text-[#D5C79A] mb-10 leading-relaxed">
+            <h2 className="font-serif text-4xl text-[#F8F4EA] mb-8 animate-fade-in">The BG Philosophy</h2>
+            <p className="text-base text-[#D5C79A] mb-10 leading-relaxed animate-fade-in" style={{animationDelay: '0.1s'}}>
               The BG Philosophy is a regenerative, global, intergenerational approach to
               wealth creation. It is built on four guiding principles that shape how we
               design strategies, build partnerships, and serve clients across the world.
@@ -84,18 +84,18 @@ const About: React.FC = () => {
                   "Eagerness to Invent & Reimagine Systems",
                   "Professional Pride & Excellence"
               ].map((item, i) => (
-                  <li key={item} className="flex items-center gap-4 p-4 border border-white/5 rounded-sm hover:border-[#D4A53A]/30 transition-colors bg-white/5 hover:bg-white/10">
+                  <li key={item} className="flex items-center gap-4 p-4 border border-white/5 rounded-sm hover:border-[#D4A53A]/30 transition-colors bg-white/5 hover:bg-white/10 animate-fade-in-up" style={{animationDelay: `${0.2 + (i * 0.1)}s`, opacity: 0, animationFillMode: 'forwards'}}>
                       <div className="w-8 h-8 rounded-full bg-[#D4A53A]/20 flex items-center justify-center text-[#D4A53A] text-xs font-serif font-bold">0{i+1}</div>
                       <span className="uppercase tracking-wide text-xs font-medium">{item}</span>
                   </li>
               ))}
             </ul>
-            <p className="mt-10 text-sm text-[#C9BC91] italic border-l-2 border-[#D4A53A] pl-6 py-2">
+            <p className="mt-10 text-sm text-[#C9BC91] italic border-l-2 border-[#D4A53A] pl-6 py-2 animate-fade-in" style={{animationDelay: '0.6s'}}>
               We believe that truly resilient wealth is built when strategy, stewardship,
               and impact are aligned.
             </p>
           </div>
-          <div className="flex items-center justify-center relative order-1 md:order-2">
+          <div className="flex items-center justify-center relative order-1 md:order-2 animate-fade-in" style={{animationDelay: '0.3s'}}>
             {/* Decorative Elements */}
             <div className="absolute inset-0 border border-[#D4A53A]/20 rounded-full scale-110 animate-pulse-slow"></div>
             <div className="absolute inset-0 border border-[#D4A53A]/10 rounded-full scale-125"></div>
@@ -111,17 +111,17 @@ const About: React.FC = () => {
       <section className="bg-[#050607] px-[8vw] py-32 relative">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#D4A53A]/5 via-transparent to-transparent pointer-events-none"></div>
         <div className="mx-auto max-w-4xl text-center relative z-10">
-          <Award className="w-12 h-12 text-[#D4A53A] mx-auto mb-8 opacity-80" strokeWidth={1} />
-          <h2 className="font-serif text-4xl text-[#F8F4EA] mb-8">Mission &amp; Mandate</h2>
-          <p className="text-lg text-[#D5C79A] leading-relaxed mb-10 font-light">
+          <Award className="w-12 h-12 text-[#D4A53A] mx-auto mb-8 opacity-80 animate-fade-in" strokeWidth={1} />
+          <h2 className="font-serif text-4xl text-[#F8F4EA] mb-8 animate-fade-in-up">Mission &amp; Mandate</h2>
+          <p className="text-lg md:text-xl text-[#D5C79A] leading-relaxed mb-10 font-light animate-fade-in-up" style={{animationDelay: '0.1s'}}>
             Our mission is to empower global families, institutions, athletes, and nations
             through disciplined, multi-asset wealth architectures and strategic
             partnerships. We exist to connect capital with long-term opportunity and to
             help clients design futures that are financially resilient, globally connected,
             and meaningfully impactful.
           </p>
-          <div className="h-px w-24 bg-[#D4A53A] mx-auto mb-8"></div>
-          <p className="text-sm text-[#C0B489] uppercase tracking-widest">
+          <div className="h-px w-24 bg-[#D4A53A] mx-auto mb-8 opacity-50"></div>
+          <p className="text-xs md:text-sm text-[#C0B489] uppercase tracking-[0.3em] leading-loose">
             Public Markets • Private Markets • Climate • Sports • Real Estate • Regenerative
           </p>
         </div>
@@ -139,10 +139,11 @@ const About: React.FC = () => {
           </p>
 
           <div className="grid gap-8 md:grid-cols-2">
-            {leadership.map((leader) => (
+            {leadership.map((leader, i) => (
               <article
                 key={leader.name}
-                className="flex flex-col sm:flex-row gap-8 rounded-sm border border-[#D4A53A]/10 bg-gradient-to-b from-[#14100A] via-[#050505] to-[#050505] p-8 hover:border-[#D4A53A]/30 transition-colors group"
+                className="flex flex-col sm:flex-row gap-8 rounded-sm border border-[#D4A53A]/10 bg-gradient-to-b from-[#14100A] via-[#050505] to-[#050505] p-8 hover:border-[#D4A53A]/30 transition-colors group animate-fade-in-up"
+                style={{animationDelay: `${i * 0.15}s`, opacity: 0, animationFillMode: 'forwards'}}
               >
                 <div className="mt-1 shrink-0">
                   <div className="w-32 h-32 rounded-full p-1 border border-[#D4A53A]/30 mx-auto sm:mx-0">
