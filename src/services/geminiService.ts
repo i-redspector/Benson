@@ -51,7 +51,8 @@ export const sendMessageToGemini = async (history: { role: string, text: string 
     const ai = new GoogleGenAI({ apiKey });
     
     // Format history for the API
-    const contents = [
+    // Casting to any to avoid strict type mismatch with SDK during build
+    const contents: any[] = [
         { role: 'user', parts: [{ text: SYSTEM_INSTRUCTION }] },
         ...history.map(msg => ({
             role: msg.role === 'user' ? 'user' : 'model',
