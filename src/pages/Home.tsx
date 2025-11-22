@@ -6,6 +6,14 @@ import GlobalNetworkViz from '../components/GlobalNetworkViz';
 import MarketChart from '../components/MarketChart';
 import EcosystemDiagram from '../components/EcosystemDiagram';
 
+const PARTNERS = [
+    { name: "Victory Hill Capital Corp", logo: "https://placehold.co/300x120/000000/D4AF37?text=Victory+Hill&font=playfair-display" },
+    { name: "NetZero Nexus", logo: "https://placehold.co/300x120/000000/D4AF37?text=NetZero+Nexus&font=playfair-display" },
+    { name: "ITS Investment Holdings", logo: "https://placehold.co/300x120/000000/D4AF37?text=ITS+Holdings&font=playfair-display" },
+    { name: "Falcon GRAVATON", logo: "https://placehold.co/300x120/000000/D4AF37?text=Falcon+Gravaton&font=playfair-display" },
+    { name: "TG4 Sports Development", logo: "https://placehold.co/300x120/000000/D4AF37?text=TG4+Sports&font=playfair-display" }
+];
+
 const Home: React.FC = () => {
   const [activeHub, setActiveHub] = useState<any | null>(null);
   const [scrollY, setScrollY] = useState(0);
@@ -119,10 +127,13 @@ const Home: React.FC = () => {
 
       {/* WHO WE SERVE */}
       <section id="who-we-serve" className="py-32 bg-bg-matteBlack relative">
-        <div className="container mx-auto px-6">
+        {/* Subtle Texture */}
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-5 pointer-events-none"></div>
+        
+        <div className="container mx-auto px-6 relative z-10">
             <div className="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-white/10 pb-8">
                 <h2 className="font-serif text-4xl md:text-5xl text-white">Who We Serve</h2>
-                <p className="text-bg-gold uppercase tracking-widest text-xs mt-4 md:mt-0">Client Segments</p>
+                <p className="text-bg-gold uppercase tracking-widest text-xs mt-4 md:mt-0 font-bold">Client Segments</p>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-px bg-white/10 border border-white/10 shadow-2xl">
@@ -133,15 +144,15 @@ const Home: React.FC = () => {
                     { title: "Athletes (TG4)", desc: "From performance to prosperity—elite advisory & lifestyle.", icon: Activity },
                     { title: "Governments", desc: "Strategies supporting national development & infrastructure.", icon: Globe },
                 ].map((item, i) => (
-                    <div key={i} className="group relative bg-bg-matteBlack p-10 min-h-[24rem] flex flex-col justify-between overflow-hidden cursor-pointer hover:bg-[#0f0f0f] transition-colors">
+                    <div key={i} className="group relative bg-bg-matteBlack p-8 md:p-10 min-h-[18rem] md:min-h-[24rem] flex flex-col justify-between overflow-hidden cursor-pointer hover:bg-[#0f0f0f] transition-colors duration-500 active:bg-[#141414]">
                         {/* Hover Background Gradient */}
-                        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-bg-gold/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-bg-gold/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
                         
                         <div className="relative z-10">
-                            <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center mb-8 group-hover:border-bg-gold/50 group-hover:text-bg-gold transition-colors bg-white/5 group-hover:scale-110 transform duration-500">
+                            <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center mb-8 group-hover:border-bg-gold/50 group-hover:text-bg-gold transition-colors bg-white/5 group-hover:scale-110 transform duration-500 shadow-lg group-hover:shadow-[0_0_20px_rgba(212,175,55,0.2)]">
                                 <item.icon className="w-5 h-5" />
                             </div>
-                            <h3 className="font-serif text-2xl text-white mb-4 leading-tight group-hover:text-bg-gold transition-colors duration-300">{item.title}</h3>
+                            <h3 className="font-serif text-xl md:text-2xl text-white mb-4 leading-tight group-hover:text-bg-gold transition-colors duration-300">{item.title}</h3>
                         </div>
                         
                         <div className="relative z-10">
@@ -167,28 +178,19 @@ const Home: React.FC = () => {
                 <h3 className="font-serif text-3xl text-white mt-4">Global Powerhouses</h3>
             </div>
             
-            <div className="flex flex-wrap justify-center gap-12 md:gap-24 items-baseline opacity-60 hover:opacity-100 transition-opacity duration-700 mb-24 grayscale hover:grayscale-0">
-                {/* Stylized Text Logos with more structure */}
-                <div className="text-center group cursor-default">
-                    <div className="font-serif font-bold text-2xl text-white tracking-tighter group-hover:text-bg-gold transition-colors border-b-2 border-transparent group-hover:border-bg-gold/30 pb-1">Victory Hill</div>
-                    <div className="text-[9px] font-sans text-gray-500 uppercase tracking-[0.2em] mt-2">Capital Corp</div>
-                </div>
-                <div className="text-center group cursor-default">
-                    <div className="font-serif font-bold text-2xl text-white tracking-tighter group-hover:text-bg-gold transition-colors border-b-2 border-transparent group-hover:border-bg-gold/30 pb-1">NetZero</div>
-                    <div className="text-[9px] font-sans text-gray-500 uppercase tracking-[0.2em] mt-2">Nexus</div>
-                </div>
-                <div className="text-center group cursor-default">
-                    <div className="font-serif font-bold text-2xl text-white tracking-tighter group-hover:text-bg-gold transition-colors border-b-2 border-transparent group-hover:border-bg-gold/30 pb-1">ITS</div>
-                    <div className="text-[9px] font-sans text-gray-500 uppercase tracking-[0.2em] mt-2">Holdings</div>
-                </div>
-                <div className="text-center group cursor-default">
-                    <div className="font-serif font-bold text-2xl text-white tracking-tighter group-hover:text-bg-gold transition-colors border-b-2 border-transparent group-hover:border-bg-gold/30 pb-1">Falcon</div>
-                    <div className="text-[9px] font-sans text-gray-500 uppercase tracking-[0.2em] mt-2">Ireland</div>
-                </div>
-                <div className="text-center group cursor-default">
-                    <div className="font-serif font-bold text-2xl text-white tracking-tighter group-hover:text-bg-gold transition-colors border-b-2 border-transparent group-hover:border-bg-gold/30 pb-1">TG4</div>
-                    <div className="text-[9px] font-sans text-gray-500 uppercase tracking-[0.2em] mt-2">Sports Dev</div>
-                </div>
+            {/* Logos Grid */}
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-12 md:gap-16 items-center justify-items-center mb-24">
+                {PARTNERS.map((partner, i) => (
+                    <div key={i} className="group relative flex items-center justify-center p-4 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-700 hover:scale-105 cursor-pointer">
+                        {/* Glow effect behind logo */}
+                        <div className="absolute inset-0 bg-bg-gold/10 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                        <img 
+                            src={partner.logo} 
+                            alt={partner.name}
+                            className="h-16 w-auto object-contain relative z-10 mix-blend-lighten"
+                        />
+                    </div>
+                ))}
             </div>
 
             {/* ECOSYSTEM DIAGRAM */}
@@ -300,7 +302,7 @@ const Home: React.FC = () => {
             </div>
 
             {/* Right Map Visualization */}
-            <div className="relative h-[400px] lg:h-[700px] w-full overflow-hidden bg-[#030303]">
+            <div className="relative min-h-[400px] lg:h-[700px] w-full overflow-hidden bg-[#030303]">
                  <div className="absolute top-6 right-6 z-10 flex gap-4 pointer-events-none">
                      <div className="bg-black/50 backdrop-blur border border-white/10 px-4 py-2 rounded-full flex items-center gap-2">
                          <div className="w-2 h-2 bg-bg-gold rounded-full"></div>
@@ -416,7 +418,7 @@ const Home: React.FC = () => {
                     type="email" 
                     placeholder="Your Email Address" 
                     required
-                    className="flex-1 px-8 py-5 bg-white border-none outline-none placeholder-gray-400 text-black disabled:opacity-70"
+                    className="flex-1 px-8 py-5 bg-white border-none outline-none placeholder-gray-400 text-black disabled:opacity-70 focus:ring-2 focus:ring-black transition-all"
                     disabled={newsletterStatus !== 'idle'}
                  />
                  <button 
@@ -465,18 +467,18 @@ const Home: React.FC = () => {
                 <div className="grid md:grid-cols-2 gap-12 mb-12">
                     <div className="group">
                         <label className="block text-xs uppercase tracking-widest text-gray-500 mb-2 group-focus-within:text-bg-gold transition-colors">Full Name</label>
-                        <input required type="text" className="w-full bg-transparent border-b border-white/20 py-3 text-white outline-none focus:border-bg-gold transition-colors font-serif text-xl" />
+                        <input required type="text" className="w-full bg-transparent border-b border-white/20 py-3 text-white outline-none focus:border-bg-gold transition-colors font-serif text-xl focus:bg-white/5" />
                     </div>
                     <div className="group">
                         <label className="block text-xs uppercase tracking-widest text-gray-500 mb-2 group-focus-within:text-bg-gold transition-colors">Email Address</label>
-                        <input required type="email" className="w-full bg-transparent border-b border-white/20 py-3 text-white outline-none focus:border-bg-gold transition-colors font-serif text-xl" />
+                        <input required type="email" className="w-full bg-transparent border-b border-white/20 py-3 text-white outline-none focus:border-bg-gold transition-colors font-serif text-xl focus:bg-white/5" />
                     </div>
                 </div>
                 
                 <div className="mb-12 group">
                     <label className="block text-xs uppercase tracking-widest text-gray-500 mb-2 group-focus-within:text-bg-gold transition-colors">Inquiry Type</label>
                     <div className="relative">
-                        <select className="w-full bg-transparent border-b border-white/20 py-3 text-white outline-none focus:border-bg-gold transition-colors font-serif text-xl appearance-none cursor-pointer z-10 relative">
+                        <select className="w-full bg-transparent border-b border-white/20 py-3 text-white outline-none focus:border-bg-gold transition-colors font-serif text-xl appearance-none cursor-pointer z-10 relative focus:bg-white/5">
                             <option className="bg-bg-charcoal">High-Net-Worth Client</option>
                             <option className="bg-bg-charcoal">Family Office</option>
                             <option className="bg-bg-charcoal">Institution or Corporation</option>

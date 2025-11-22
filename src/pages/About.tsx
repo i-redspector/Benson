@@ -84,9 +84,9 @@ const About: React.FC = () => {
                   "Eagerness to Invent & Reimagine Systems",
                   "Professional Pride & Excellence"
               ].map((item, i) => (
-                  <li key={item} className="flex items-center gap-4 p-4 border border-white/5 rounded-sm hover:border-[#D4A53A]/30 transition-colors bg-white/5 hover:bg-white/10 animate-fade-in-up" style={{animationDelay: `${0.2 + (i * 0.1)}s`, opacity: 0, animationFillMode: 'forwards'}}>
-                      <div className="w-8 h-8 rounded-full bg-[#D4A53A]/20 flex items-center justify-center text-[#D4A53A] text-xs font-serif font-bold">0{i+1}</div>
-                      <span className="uppercase tracking-wide text-xs font-medium">{item}</span>
+                  <li key={item} className="flex items-center gap-4 p-4 border border-white/5 rounded-sm hover:border-[#D4A53A]/30 transition-colors bg-white/5 hover:bg-white/10 animate-fade-in-up cursor-default group" style={{animationDelay: `${0.2 + (i * 0.1)}s`, opacity: 0, animationFillMode: 'forwards'}}>
+                      <div className="w-8 h-8 rounded-full bg-[#D4A53A]/20 flex items-center justify-center text-[#D4A53A] text-xs font-serif font-bold group-hover:bg-[#D4A53A] group-hover:text-black transition-all duration-300">0{i+1}</div>
+                      <span className="uppercase tracking-wide text-xs font-medium group-hover:text-white transition-colors">{item}</span>
                   </li>
               ))}
             </ul>
@@ -100,8 +100,8 @@ const About: React.FC = () => {
             <div className="absolute inset-0 border border-[#D4A53A]/20 rounded-full scale-110 animate-pulse-slow"></div>
             <div className="absolute inset-0 border border-[#D4A53A]/10 rounded-full scale-125"></div>
             
-            <div className="relative z-10 bg-gradient-to-br from-[#1a1a1a] to-black p-12 rounded-full border border-[#D4A53A]/30 shadow-[0_0_50px_rgba(212,175,55,0.15)]">
-                <Shield className="w-48 h-48 text-[#D4A53A]" strokeWidth={0.5} />
+            <div className="relative z-10 bg-gradient-to-br from-[#1a1a1a] to-black p-12 rounded-full border border-[#D4A53A]/30 shadow-[0_0_50px_rgba(212,175,55,0.15)] group hover:shadow-[0_0_80px_rgba(212,175,55,0.3)] transition-shadow duration-700">
+                <Shield className="w-48 h-48 text-[#D4A53A] group-hover:scale-105 transition-transform duration-700" strokeWidth={0.5} />
             </div>
           </div>
         </div>
@@ -142,20 +142,20 @@ const About: React.FC = () => {
             {leadership.map((leader, i) => (
               <article
                 key={leader.name}
-                className="flex flex-col sm:flex-row gap-8 rounded-sm border border-[#D4A53A]/10 bg-gradient-to-b from-[#14100A] via-[#050505] to-[#050505] p-8 hover:border-[#D4A53A]/30 transition-colors group animate-fade-in-up"
+                className="flex flex-col sm:flex-row gap-8 rounded-sm border border-[#D4A53A]/10 bg-gradient-to-b from-[#14100A] via-[#050505] to-[#050505] p-8 hover:border-[#D4A53A]/30 transition-colors group animate-fade-in-up shadow-lg hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)]"
                 style={{animationDelay: `${i * 0.15}s`, opacity: 0, animationFillMode: 'forwards'}}
               >
                 <div className="mt-1 shrink-0">
-                  <div className="w-32 h-32 rounded-full p-1 border border-[#D4A53A]/30 mx-auto sm:mx-0">
+                  <div className="w-32 h-32 rounded-full p-1 border border-[#D4A53A]/30 mx-auto sm:mx-0 overflow-hidden">
                      <img
                         src={leader.img}
                         alt={leader.name}
-                        className="w-full h-full rounded-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                        className="w-full h-full rounded-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-110"
                       />
                   </div>
                 </div>
                 <div className="text-center sm:text-left">
-                  <h3 className="text-xl font-serif font-medium text-[#F6EDD8]">
+                  <h3 className="text-xl font-serif font-medium text-[#F6EDD8] group-hover:text-white transition-colors">
                     {leader.name}
                   </h3>
                   <p className="text-xs uppercase tracking-[0.2em] text-[#D4A53A] mb-6 mt-2 font-bold">
